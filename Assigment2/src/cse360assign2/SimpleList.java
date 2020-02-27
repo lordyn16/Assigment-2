@@ -1,7 +1,7 @@
 /**
  * Jordyn Garvey
  * Class ID: 369
- * Assignment #1
+ * Assignment #2
  * Creates class SimpleList that creates an manipulates an integer array.
  */
 
@@ -36,8 +36,8 @@ public class SimpleList {
 	 * Add method adds an integer at index 0 of the list array.
 	 * It will shift all the elements of the array to the next value
 	 * to make room at index 0.
-	 * If the array is already full it will remove the last element
-	 * from the list.
+	 * If the array is already full it will increase the array size by
+	 * 50%
 	 * 
 	 * @param newValue		The new integer added at index 0 of the 
 	 * 						array.
@@ -47,7 +47,18 @@ public class SimpleList {
 		int index = count; 
 		
 		//if the list is full the last element will "fall off" the list
-		if(index == 10) {index--;} 
+		if(index == list.length) 
+		{
+			int[] Newlist = new int[index*2];
+			
+			for (int copyIndex = 0; copyIndex < index; copyIndex++) {
+				
+				Newlist[copyIndex] = list[copyIndex];
+			}
+			
+			list = Newlist;
+			
+		} 
 		
 		while(index >= 1)
 		{
@@ -55,7 +66,7 @@ public class SimpleList {
 			index--;
 		}
 		list[0] = newValue;
-		if(count < 10) {count++;}
+		count++;
 		
 	}
 	
@@ -63,6 +74,8 @@ public class SimpleList {
 	 * Remove method removes an integer from the list array.
 	 * If it finds the integer it needs to remove it will remove it then
 	 * continue though the list looking for more copies.
+	 * If the list array has 25% free space it will decrease the size
+	 * of the list.
 	 * 
 	 * 
 	 * @param intToRemove	The integer that will be removed from the 
@@ -80,7 +93,18 @@ public class SimpleList {
 				count--;
 				index--;
 			}	
-		}	
+		}
+		
+		if(count < ((list.length*3)/4)) {
+			int[] Newlist = new int[(list.length*3)/4];
+			
+			for (int copyIndex = 0; copyIndex < count; copyIndex++) {
+				
+				Newlist[copyIndex] = list[copyIndex];
+			}
+			
+			list = Newlist;
+		}
 	}
 	
 	
@@ -143,6 +167,70 @@ public class SimpleList {
 		
 		return searchIndex;
 	}
+	
+	
+	/**
+	 * size will return the size of the list array.
+	 * 
+	 * @return				The size of the list array
+	 */
+	public int size() {
+		
+		return list.length;
+		
+	}
+	
+	
+	/**
+	 * Will return the first element of a list.
+	 * 
+	 * @return		The element at list[0]
+	 */
+	public int first() {
+		
+		return list[0];
+	}
+	
+	/**
+	 * Will return the last element of a list.
+	 * 
+	 * @return		The element at list[count - 1]
+	 */
+	public int last() {
+		
+		return list[count - 1];
+	}
+	
+	/**
+	 * append will add a new integer to the end of the list array.
+	 * if the array is full it will increase the array size by 50%.
+	 * 
+	 * 
+	 * @param newValue		The new integer that will be added to the 
+	 * 						end of the list array
+	 */
+	public void append(int newValue) {
+
+		//if the list is full the last element will "fall off" the list
+		if(count == list.length) 
+		{
+			int[] Newlist = new int[count*2];
+			
+			for (int copyIndex = 0; copyIndex < count; copyIndex++) {
+				
+				Newlist[copyIndex] = list[copyIndex];
+			}
+			
+			list = Newlist;
+			
+		} 
+		
+		list[count] = newValue;
+		count++;
+		
+	}
+	
+	
 	
 	
 	
